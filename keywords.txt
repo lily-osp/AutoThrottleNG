@@ -1,0 +1,67 @@
+#######################################
+# Keywords for AutoThrottleNG Library
+#######################################
+
+#######################################
+# Class Definition
+#######################################
+AutoThrottleNG	KEYWORD1
+
+#######################################
+# Public Methods
+#######################################
+# Core
+setTarget				KEYWORD2
+updateInput				KEYWORD2
+compute					KEYWORD2
+reset					KEYWORD2
+# PID Config
+setTunings				KEYWORD2
+setOutputLimits			KEYWORD2
+setControllerDirection	KEYWORD2
+setSampleTime			KEYWORD2
+setMode					KEYWORD2
+# Filtering
+setInputFilterAlpha		KEYWORD2
+# Smoothing
+enableSmoothing			KEYWORD2
+# Failsafe Config
+setFailsafeValue		KEYWORD2
+setInputTimeout			KEYWORD2
+setStabilityParams		KEYWORD2
+# Status & Debugging
+getThrottle				KEYWORD2
+getRawPIDOutput			KEYWORD2
+getFilteredInput		KEYWORD2
+getRawInput             KEYWORD2
+isStable				KEYWORD2
+getKp					KEYWORD2
+getKi					KEYWORD2
+getKd					KEYWORD2
+getMode					KEYWORD2
+getSetpoint				KEYWORD2
+getErrorState			KEYWORD2
+isInErrorState			KEYWORD2
+clearErrorState			KEYWORD2
+isSaturated				KEYWORD2
+getLastUpdateTime		KEYWORD2
+
+#######################################
+# Public Enums and Values
+#######################################
+# Error States (within AutoThrottleNG::Error, but often used directly)
+NONE					LITERAL1
+INPUT_INVALID			LITERAL1
+INPUT_TIMEOUT			LITERAL1
+STABILITY_TIMEOUT		LITERAL1
+
+#######################################
+# Related Constants (from PID.h)
+# Including these helps users if they pass them directly
+#######################################
+DIRECT					LITERAL1
+REVERSE					LITERAL1
+MANUAL					LITERAL1
+AUTOMATIC				LITERAL1
+P_ON_E					LITERAL1
+P_ON_M					LITERAL1
