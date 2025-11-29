@@ -8,7 +8,22 @@
 # Arduino Build Artifacts
 # -----------------------
 
-# Compiled binaries
+# Build directories and artifacts
+# --------------------------------
+
+# Main build directory and all subdirectories
+build/
+build*/
+**/build/
+**/build*/
+
+# Build configuration and cache files
+build.options.json
+compile_commands.json
+includes.cache
+libraries.cache
+
+# Build artifacts in any location
 *.hex
 *.elf
 *.eep
@@ -16,12 +31,22 @@
 *.with_bootloader.hex
 *.with_bootloader.bin
 
-# Build directories and artifacts
-build/
-build.options.json
-compile_commands.json
-includes.cache
-libraries.cache
+# Object files and dependencies
+*.o
+*.d
+*.a
+*.obj
+*.lib
+
+# Core build artifacts
+core/
+libraries/
+
+# Sketch compilation artifacts
+sketch/
+*.ino.cpp
+*.ino.cpp.d
+*.ino.cpp.o
 
 # Arduino IDE specific
 *.ino.d
