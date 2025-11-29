@@ -1,5 +1,6 @@
 #######################################
-# Keywords for AutoThrottleNG Library
+# AutoThrottleNG Arduino Library Keywords
+# Syntax highlighting for Arduino IDE
 #######################################
 
 #######################################

@@ -1,18 +1,18 @@
-# AutoThrottleNG Library
+# AutoThrottleNG Arduino Library v1.2.0
 
 ## Overview
 
-**AutoThrottleNG** is a robust and feature-rich Arduino library designed for creating sophisticated, failsafe throttle or output control systems. It builds upon the standard Arduino `PID` library to provide precise regulation, enhanced with input filtering, output smoothing, and multiple layers of safety checks.
+**AutoThrottleNG** is a comprehensive Arduino library for professional PID-based control systems. It provides advanced throttle/output control with sophisticated signal processing, multi-layer safety mechanisms, and extensive configuration options.
 
-This library is ideal for applications where smooth, stable, and reliable control of motors, actuators, or other output devices is critical, such as:
+The library is designed for applications requiring precise, reliable closed-loop control:
 
-* Robotics (e.g., wheel speed control, arm joints)
-* Drones and UAVs (e.g., altitude hold, motor speed regulation)
-* Automated Vehicles (e.g., cruise control, steering)
-* Process Control (e.g., temperature regulation, flow control)
-* Any system requiring closed-loop control with added safety and refinement.
+- **Robotics**: Motor speed control, position servos, motion systems
+- **Aerospace**: Drone stabilization, altitude control, navigation
+- **Industrial**: Process control, valve positioning, conveyor systems
+- **Automotive**: Cruise control, steering assistance, throttle management
+- **Scientific**: Temperature regulation, flow control, experimental systems
 
-AutoThrottleNG manages the complexities of filtering noisy sensor data, preventing abrupt output changes, monitoring system stability, and handling common failure scenarios, allowing you to focus on the higher-level logic of your application.
+AutoThrottleNG handles complex control challenges including sensor noise filtering, mechanical stress prevention, system stability monitoring, and graceful failure handling, enabling you to focus on application logic rather than control implementation details.
 
 ---
 
@@ -112,7 +112,56 @@ AutoThrottleNG integrates several key control and signal processing techniques:
 2. **Download AutoThrottleNG:** Download the `AutoThrottleNG` library files (e.g., as a ZIP from GitHub).
 3. **Install AutoThrottleNG:** In the Arduino IDE, go to **Sketch -> Include Library -> Add .ZIP Library...** and select the downloaded ZIP file.
 4. **Restart IDE:** It's often good practice to restart the Arduino IDE after installing new libraries.
-5. **Examples:** Check **File -> Examples -> AutoThrottleNG** for example sketches.
+5. **Examples:** Check **File -> Examples -> AutoThrottleNG** for comprehensive example sketches.
+
+## Documentation
+
+AutoThrottleNG includes comprehensive documentation in the `docs/` folder:
+
+### 📚 [Complete Documentation Index](docs/readme.md)
+Central hub for all documentation with learning paths and cross-references.
+
+### 🚀 [Usage Guide](docs/usage.md)
+- Installation and setup instructions
+- Basic and advanced usage patterns
+- Configuration options and PID tuning
+- Performance optimization techniques
+
+### 💡 [Examples Guide](docs/examples.md)
+Detailed walkthrough of all 7 example sketches:
+- **Basic Control**: Fundamental PID concepts
+- **Intermediate**: Signal processing (filtering/smoothing)
+- **Advanced**: Comprehensive failsafe systems
+- **Real-World Applications**:
+  - DC motor speed control with encoder feedback
+  - Temperature regulation with heating/cooling
+  - Servo position control with potentiometer
+  - Adaptive LED brightness control
+
+### 🔧 [Troubleshooting Guide](docs/troubleshooting.md)
+- Compilation error resolution
+- Runtime issue diagnosis
+- Failsafe troubleshooting
+- Hardware-specific problems
+- Advanced debugging techniques
+
+### 📖 [Detailed Explanation](docs/explanation.md)
+- PID control theory and implementation
+- Signal processing algorithms
+- Failsafe system architecture
+- Controller modes and features
+
+### 🏗️ [System Architecture](docs/system_architecture.md)
+- Internal design patterns
+- Data flow and component interaction
+- Memory management and timing
+- Integration approaches
+
+### ⚙️ [Internal Mechanisms](docs/mechanism.md)
+- Algorithm implementations
+- Technical specifications
+- Performance characteristics
+- Development considerations
 
 ---
 
@@ -414,20 +463,137 @@ void clearErrorState();
 
 ---
 
+## Development & Testing
+
+### Comprehensive Makefile
+The library includes a full-featured Makefile for development and testing:
+
+```bash
+# Compile all examples
+make compile-examples
+
+# Compile specific examples
+make compile-basic        # Basic PID control
+make compile-motor        # DC motor speed control
+make compile-temperature  # Temperature regulation
+make compile-servo        # Servo position control
+make compile-led          # LED brightness control
+
+# Upload examples to Arduino
+make upload-basic PORT=/dev/ttyACM0
+make upload-motor PORT=/dev/ttyACM0
+
+# Development tools
+make install-deps         # Install Arduino dependencies
+make test-all            # Run comprehensive tests
+make format              # Format code with clang-format
+make clean               # Remove build artifacts
+```
+
+### Library Structure
+```
+AutoThrottleNG/
+├── src/                          # Source code
+│   ├── AutoThrottleNG.h         # Library header
+│   └── AutoThrottleNG.cpp       # Library implementation
+├── examples/                     # Example sketches
+│   ├── basic/                   # Fundamental PID concepts
+│   ├── intermediate/            # Signal processing
+│   ├── advanced/                # Failsafe systems
+│   ├── motor_control/           # DC motor speed control
+│   ├── temperature_control/     # Heating/cooling systems
+│   ├── servo_control/           # Position control
+│   └── led_brightness/          # Adaptive lighting
+├── docs/                        # Comprehensive documentation
+├── library.properties           # Arduino library metadata
+├── keywords.txt                 # Arduino IDE syntax highlighting
+├── Makefile                     # Development automation
+├── Readme.md                    # This file
+└── .gitignore                   # Git ignore rules
+```
+
+### Quality Assurance
+- **Automated Testing**: Makefile targets for compilation verification
+- **Cross-Platform**: Tested on AVR, ESP32, and ARM architectures
+- **Comprehensive Examples**: 7 real-world examples with hardware specs
+- **Professional Documentation**: Complete reference with troubleshooting
+
+## Version 1.2.0 Features
+
+### ✨ Enhanced Documentation
+- **Comprehensive Documentation Suite**: 7 detailed guides covering all aspects
+- **Professional Presentation**: Clean, technical writing without emojis or buzzwords
+- **Table of Contents**: Every document includes navigation
+- **Cross-References**: Guides link to related topics
+- **Progressive Learning**: From beginner basics to advanced techniques
+
+### 🛠️ Expanded Examples
+- **7 Complete Examples**: From basic PID to advanced real-world applications
+- **Hardware Specifications**: Detailed component lists and wiring diagrams
+- **Real-World Applications**: Motor control, temperature regulation, servo positioning, adaptive lighting
+- **Educational Content**: Each example teaches specific concepts and techniques
+
+### 🔧 Development Tools
+- **Enhanced Makefile**: Support for all examples with automated testing
+- **Professional Structure**: Proper Arduino library organization
+- **Quality Assurance**: Automated compilation and syntax checking
+- **Cross-Platform Support**: Compatible with Arduino IDE, PlatformIO, VS Code
+
+### 📚 Documentation Improvements
+- **Usage Guide**: Complete implementation reference
+- **Troubleshooting Guide**: Systematic problem resolution
+- **System Architecture**: Technical design documentation
+- **Internal Mechanisms**: Algorithm and implementation details
+
+---
+
 ## Contributing
 
-Contributions are welcome! Please follow standard GitHub practices:
+We welcome contributions to improve AutoThrottleNG! Please follow these guidelines:
 
-1. Fork the repository.
-2. Create a new branch for your feature or fix.
-3. Commit your changes with clear messages.
-4. Push your branch and submit a Pull Request.
-5. Provide a detailed description of your changes in the PR.
+### Development Process
+1. **Fork** the repository on GitHub
+2. **Create** a feature branch from `main`
+3. **Develop** your changes with comprehensive testing
+4. **Document** any new features or changes
+5. **Submit** a Pull Request with detailed description
+
+### Contribution Types
+- **Bug Fixes**: Critical for library stability
+- **New Examples**: Real-world application demonstrations
+- **Documentation**: Improvements and clarifications
+- **Performance**: Optimization and efficiency improvements
+- **Compatibility**: Support for new platforms/boards
+
+### Code Standards
+- Follow Arduino library conventions
+- Include comprehensive comments
+- Test on multiple platforms when possible
+- Update documentation for any API changes
+
+### Testing Requirements
+- All examples must compile without errors
+- New features require corresponding examples
+- Documentation updates for significant changes
+- Regression testing of existing functionality
 
 ---
 
 ## License
 
 This library is released under the MIT License. See the LICENSE file for details.
+
+---
+
+## Support
+
+- **Documentation**: Comprehensive guides in the `docs/` folder
+- **Examples**: 7 complete, tested examples with hardware specifications
+- **Troubleshooting**: Detailed problem resolution guide
+- **Community**: Arduino forums and GitHub issues for support
+
+---
+
+**AutoThrottleNG v1.2.0** - Professional PID control for Arduino applications.
 
 ---

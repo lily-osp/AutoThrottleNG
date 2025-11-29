@@ -1,0 +1,246 @@
+# AutoThrottleNG Arduino Library .gitignore
+# ===========================================
+#
+# This .gitignore file is specifically designed for Arduino library development.
+# It ignores build artifacts, IDE files, OS-specific files, and temporary files
+# while keeping the essential library files tracked.
+#
+# Arduino Build Artifacts
+# -----------------------
+
+# Compiled binaries
+*.hex
+*.elf
+*.eep
+*.bin
+*.with_bootloader.hex
+*.with_bootloader.bin
+
+# Build directories and artifacts
+build/
+build.options.json
+compile_commands.json
+includes.cache
+libraries.cache
+
+# Arduino IDE specific
+*.ino.d
+*.ino.o
+*.cpp.d
+*.cpp.o
+
+# PlatformIO specific (if used)
+.pio/
+.pioenvs/
+.piolibdeps/
+.pio/build/
+.pio/lib/
+.vscode/
+.idea/
+
+# Operating System Files
+# ----------------------
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Development Tools
+# -----------------
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
+*.orig
+
+# Vim
+*.swp
+*.swo
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# Atom
+.atom/
+
+# Text editors
+*.bak
+*.tmp
+*.orig
+
+# Build and Compilation
+# ---------------------
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Make
+Makefile.old
+*.d
+*.o
+*.a
+
+# Temporary and Log Files
+# -----------------------
+
+# General temp files
+*.tmp
+*.temp
+*.log
+*.cache
+*.pid
+*.seed
+*.pid.lock
+
+# Arduino CLI logs
+arduino-cli.log
+
+# Backup files
+*.backup
+*.bak
+*.orig
+*.rej
+
+# Archives and Packages
+# ---------------------
+
+# Distribution packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Documentation
+# -------------
+
+# Generated docs
+docs/html/
+docs/latex/
+docs/man/
+doxygen/
+
+# Version Control
+# ---------------
+
+# Git (double-check these aren't ignored)
+# .git/
+# .gitignore
+
+# Mercurial
+.hg/
+.hgignore
+
+# SVN
+.svn/
+
+# Bazaar
+.bzr/
+.bzrignore
+
+# Project Specific
+# ----------------
+
+# Custom build outputs
+dist/
+release/
+*.pkg
+
+# Test results
+test-results/
+test-output/
+
+# CI/CD
+.github/workflows/*.log
+
+# Local configuration (copy and customize)
+config.local.h
+secrets.h
+credentials.h
+
+# Simulation and Testing
+# ----------------------
+
+# Circuit simulation files
+*.sch
+*.brd
+*.net
+
+# Fritzing files
+*.fzz
+*.fz*
+
+# EAGLE files
+*.brd
+*.sch
+*.lbr
+
+# KiCad files
+*.pro
+*.sch
+*.brd
+*.kicad_pcb
+*.kicad_sch
+fp-info-cache
+*.pretty/
+
+# Proteus
+*.DSN
+*.DBK
+
+# LTspice
+*.raw
+*.log
+*.net
