@@ -15,7 +15,7 @@
 
 ## How AutoThrottleNG Works
 
-AutoThrottleNG is a sophisticated control library that implements advanced PID (Proportional-Integral-Derivative) control with additional safety and signal processing features. This document explains the internal workings and design philosophy.
+AutoThrottleNG is a control library that implements PID (Proportional-Integral-Derivative) control with safety and signal processing features. This document explains the internal workings and design philosophy.
 
 ## 1. PID Control Fundamentals
 
@@ -355,16 +355,16 @@ void reset() {
 ### State Preservation
 
 Reset maintains:
-- ✅ PID tuning parameters (Kp, Ki, Kd)
-- ✅ Output limits
-- ✅ Filter and smoothing settings
-- ✅ Failsafe configuration
+- PID tuning parameters (Kp, Ki, Kd)
+- Output limits
+- Filter and smoothing settings
+- Failsafe configuration
 
 Reset clears:
-- ❌ Integral accumulation
-- ❌ Previous error values
-- ❌ Error states
-- ❌ Timing variables
+- Integral accumulation
+- Previous error values
+- Error states
+- Timing variables
 
 ## 12. Thread Safety and Concurrency
 
@@ -380,4 +380,4 @@ Reset clears:
 2. **Variable Access**: Use volatile for ISR-shared variables
 3. **Timing**: Ensure consistent timing between `updateInput()` and `compute()`
 
-This detailed explanation covers the core algorithms, data flow, and design decisions that make AutoThrottleNG a robust and reliable control library for Arduino projects.
+This explanation covers the core algorithms, data flow, and design decisions that make AutoThrottleNG a reliable control library for Arduino projects.

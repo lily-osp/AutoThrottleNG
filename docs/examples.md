@@ -18,7 +18,7 @@
 
 ## Overview
 
-AutoThrottleNG includes comprehensive examples demonstrating various applications and features. Each example is designed to be educational, practical, and easily adaptable to real-world projects. The examples progress from basic concepts to advanced implementations.
+AutoThrottleNG includes examples demonstrating various applications and features. Each example is designed to be educational, practical, and easily adaptable to real-world projects. The examples progress from basic concepts to advanced implementations.
 
 ## Example Categories
 
@@ -606,4 +606,4 @@ void resetEmergencyStop() {
 3. **Edge Case Testing**: Test extreme conditions and error scenarios
 4. **Long-term Testing**: Verify stability over extended periods
 
-These examples provide a solid foundation for understanding and implementing AutoThrottleNG in real-world applications, with clear progression from basic concepts to advanced implementations. The modification guides and best practices ensure successful adaptation to specific project requirements.
+These examples provide a foundation for understanding and implementing AutoThrottleNG in real-world applications, with clear progression from basic concepts to advanced implementations. The modification guides and best practices ensure successful adaptation to specific project requirements.

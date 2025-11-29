@@ -12,7 +12,7 @@
 
 ## Overview
 
-This documentation provides comprehensive information about the AutoThrottleNG Arduino PID control library. The documentation is organized into focused guides covering different aspects of the library, from basic usage to advanced technical details.
+This documentation provides information about the AutoThrottleNG Arduino PID control library. The documentation is organized into focused guides covering different aspects of the library, from basic usage to advanced technical details.
 
 ## Documentation Structure
 
@@ -248,4 +248,4 @@ Advanced Understanding
 - **Reference**: Architecture and design (System Architecture, troubleshooting)
 - **Support**: Problem resolution and debugging (Troubleshooting Guide)
 
-This documentation is designed to support users at all levels, from beginners implementing their first PID controller to advanced users optimizing complex control systems. Each guide focuses on specific aspects while maintaining cross-references for comprehensive understanding and practical application.
+This documentation is designed to support users at all levels, from beginners implementing their first PID controller to advanced users optimizing complex control systems. Each guide focuses on specific aspects while maintaining cross-references for understanding and practical application.

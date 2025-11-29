@@ -481,8 +481,8 @@ void loop() {
 For systematic PID tuning, use the Ziegler-Nichols method:
 
 1. **Set Ki = 0, Kd = 0**
-2. **Increase Kp until oscillation starts** (Ku - ultimate gain)
-3. **Record oscillation period** (Tu - ultimate period)
+2. Increase Kp until oscillation starts (Ku - ultimate gain)
+3. Record oscillation period (Tu - ultimate period)
 4. **Calculate PID values:**
    - Kp = 0.6 × Ku
    - Ki = 2 × Kp / Tu

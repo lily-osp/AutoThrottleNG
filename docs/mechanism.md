@@ -494,4 +494,4 @@ interrupts();
 - **Stack Usage**: < 32 bytes (local variables)
 - **Dynamic Allocation**: 0 bytes (no malloc/new)
 
-These mechanisms work together to provide a robust, efficient, and reliable PID control library suitable for resource-constrained embedded systems.
+These mechanisms work together to provide a reliable PID control library suitable for resource-constrained embedded systems.

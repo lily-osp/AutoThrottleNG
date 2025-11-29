@@ -2,17 +2,17 @@
 
 ## Overview
 
-**AutoThrottleNG** is a comprehensive Arduino library for professional PID-based control systems. It provides advanced throttle/output control with sophisticated signal processing, multi-layer safety mechanisms, and extensive configuration options.
+**AutoThrottleNG** is a complete Arduino library for PID-based control systems. It provides throttle/output control with signal processing, safety mechanisms, and configuration options.
 
 The library is designed for applications requiring precise, reliable closed-loop control:
 
-- **Robotics**: Motor speed control, position servos, motion systems
-- **Aerospace**: Drone stabilization, altitude control, navigation
-- **Industrial**: Process control, valve positioning, conveyor systems
-- **Automotive**: Cruise control, steering assistance, throttle management
-- **Scientific**: Temperature regulation, flow control, experimental systems
+- Robotics: Motor speed control, position servos, motion systems
+- Aerospace: Drone stabilization, altitude control, navigation
+- Industrial: Process control, valve positioning, conveyor systems
+- Automotive: Cruise control, steering assistance, throttle management
+- Scientific: Temperature regulation, flow control, experimental systems
 
-AutoThrottleNG handles complex control challenges including sensor noise filtering, mechanical stress prevention, system stability monitoring, and graceful failure handling, enabling you to focus on application logic rather than control implementation details.
+AutoThrottleNG handles control challenges including sensor noise filtering, mechanical stress prevention, system stability monitoring, and failure handling, enabling focus on application logic rather than control implementation details.
 
 ---
 
@@ -112,52 +112,52 @@ AutoThrottleNG integrates several key control and signal processing techniques:
 2. **Download AutoThrottleNG:** Download the `AutoThrottleNG` library files (e.g., as a ZIP from GitHub).
 3. **Install AutoThrottleNG:** In the Arduino IDE, go to **Sketch -> Include Library -> Add .ZIP Library...** and select the downloaded ZIP file.
 4. **Restart IDE:** It's often good practice to restart the Arduino IDE after installing new libraries.
-5. **Examples:** Check **File -> Examples -> AutoThrottleNG** for comprehensive example sketches.
+5. **Examples:** Check **File -> Examples -> AutoThrottleNG** for example sketches.
 
 ## Documentation
 
-AutoThrottleNG includes comprehensive documentation in the `docs/` folder:
+AutoThrottleNG includes documentation in the `docs/` folder:
 
-### 📚 [Complete Documentation Index](docs/readme.md)
+### [Complete Documentation Index](docs/readme.md)
 Central hub for all documentation with learning paths and cross-references.
 
-### 🚀 [Usage Guide](docs/usage.md)
+### [Usage Guide](docs/usage.md)
 - Installation and setup instructions
 - Basic and advanced usage patterns
 - Configuration options and PID tuning
 - Performance optimization techniques
 
-### 💡 [Examples Guide](docs/examples.md)
+### [Examples Guide](docs/examples.md)
 Detailed walkthrough of all 7 example sketches:
-- **Basic Control**: Fundamental PID concepts
-- **Intermediate**: Signal processing (filtering/smoothing)
-- **Advanced**: Comprehensive failsafe systems
-- **Real-World Applications**:
+- Basic Control: Fundamental PID concepts
+- Intermediate: Signal processing (filtering/smoothing)
+- Advanced: Comprehensive failsafe systems
+- Real-World Applications:
   - DC motor speed control with encoder feedback
   - Temperature regulation with heating/cooling
   - Servo position control with potentiometer
   - Adaptive LED brightness control
 
-### 🔧 [Troubleshooting Guide](docs/troubleshooting.md)
+### [Troubleshooting Guide](docs/troubleshooting.md)
 - Compilation error resolution
 - Runtime issue diagnosis
 - Failsafe troubleshooting
 - Hardware-specific problems
 - Advanced debugging techniques
 
-### 📖 [Detailed Explanation](docs/explanation.md)
+### [Detailed Explanation](docs/explanation.md)
 - PID control theory and implementation
 - Signal processing algorithms
 - Failsafe system architecture
 - Controller modes and features
 
-### 🏗️ [System Architecture](docs/system_architecture.md)
+### [System Architecture](docs/system_architecture.md)
 - Internal design patterns
 - Data flow and component interaction
 - Memory management and timing
 - Integration approaches
 
-### ⚙️ [Internal Mechanisms](docs/mechanism.md)
+### [Internal Mechanisms](docs/mechanism.md)
 - Algorithm implementations
 - Technical specifications
 - Performance characteristics
@@ -485,7 +485,7 @@ make upload-motor PORT=/dev/ttyACM0
 
 # Development tools
 make install-deps         # Install Arduino dependencies
-make test-all            # Run comprehensive tests
+make test-all            # Run complete tests
 make format              # Format code with clang-format
 make clean               # Remove build artifacts
 ```
@@ -520,30 +520,30 @@ AutoThrottleNG/
 
 ## Version 1.2.0 Features
 
-### ✨ Enhanced Documentation
-- **Comprehensive Documentation Suite**: 7 detailed guides covering all aspects
-- **Professional Presentation**: Clean, technical writing without emojis or buzzwords
-- **Table of Contents**: Every document includes navigation
-- **Cross-References**: Guides link to related topics
-- **Progressive Learning**: From beginner basics to advanced techniques
+### Enhanced Documentation
+- Documentation Suite: 7 detailed guides covering all aspects
+- Clean Presentation: Technical writing without unnecessary embellishments
+- Table of Contents: Every document includes navigation
+- Cross-References: Guides link to related topics
+- Structured Learning: From beginner basics to advanced techniques
 
-### 🛠️ Expanded Examples
-- **7 Complete Examples**: From basic PID to advanced real-world applications
-- **Hardware Specifications**: Detailed component lists and wiring diagrams
-- **Real-World Applications**: Motor control, temperature regulation, servo positioning, adaptive lighting
-- **Educational Content**: Each example teaches specific concepts and techniques
+### Expanded Examples
+- 7 Examples: From basic PID to advanced real-world applications
+- Hardware Specifications: Detailed component lists and wiring diagrams
+- Real-World Applications: Motor control, temperature regulation, servo positioning, adaptive lighting
+- Teaching Content: Each example teaches specific concepts and techniques
 
-### 🔧 Development Tools
-- **Enhanced Makefile**: Support for all examples with automated testing
-- **Professional Structure**: Proper Arduino library organization
-- **Quality Assurance**: Automated compilation and syntax checking
-- **Cross-Platform Support**: Compatible with Arduino IDE, PlatformIO, VS Code
+### Development Tools
+- Enhanced Makefile: Support for all examples with automated testing
+- Standard Structure: Proper Arduino library organization
+- Testing: Automated compilation and syntax checking
+- Cross-Platform Support: Compatible with Arduino IDE, PlatformIO, VS Code
 
-### 📚 Documentation Improvements
-- **Usage Guide**: Complete implementation reference
-- **Troubleshooting Guide**: Systematic problem resolution
-- **System Architecture**: Technical design documentation
-- **Internal Mechanisms**: Algorithm and implementation details
+### Documentation Improvements
+- Usage Guide: Complete implementation reference
+- Troubleshooting Guide: Systematic problem resolution
+- System Architecture: Technical design documentation
+- Internal Mechanisms: Algorithm and implementation details
 
 ---
 

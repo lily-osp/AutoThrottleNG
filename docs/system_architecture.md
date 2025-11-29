@@ -16,7 +16,7 @@
 
 ## Overview
 
-AutoThrottleNG is a sophisticated PID-based control library designed for Arduino platforms, providing robust throttle/output control with advanced safety and filtering features. The library integrates standard Arduino PID control with signal processing and comprehensive safety mechanisms.
+AutoThrottleNG is a PID-based control library designed for Arduino platforms, providing throttle/output control with safety and filtering features. The library integrates Arduino PID control with signal processing and safety mechanisms.
 
 ## Core Architecture Components
 
@@ -204,4 +204,4 @@ NORMAL OPERATION (RESUMED)
 - **Configuration Flexibility**: Runtime configuration without recompilation
 - **Error Handling**: Comprehensive error reporting for integration debugging
 
-This architecture ensures AutoThrottleNG is both powerful and resource-efficient, suitable for a wide range of control applications while maintaining safety and reliability. The modular design allows for easy integration into existing projects and extension for specialized applications.
+This architecture ensures AutoThrottleNG is resource-efficient, suitable for a wide range of control applications while maintaining safety and reliability. The modular design allows for easy integration into existing projects and extension for specialized applications.
