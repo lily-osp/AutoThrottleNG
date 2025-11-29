@@ -609,33 +609,35 @@ AutoThrottleNG/
 
 ## Contributing
 
-We welcome contributions to improve AutoThrottleNG! Please follow these guidelines:
+We welcome contributions to AutoThrottleNG! For detailed contribution guidelines, please see our [Contributing Guide](CONTRIBUTING.md).
 
-### Development Process
-1. **Fork** the repository on GitHub
-2. **Create** a feature branch from `main`
-3. **Develop** your changes with comprehensive testing
-4. **Document** any new features or changes
-5. **Submit** a Pull Request with detailed description
+### Quick Start for Contributors
 
-### Contribution Types
-- **Bug Fixes**: Critical for library stability
-- **New Examples**: Real-world application demonstrations
-- **Documentation**: Improvements and clarifications
-- **Performance**: Optimization and efficiency improvements
-- **Compatibility**: Support for new platforms/boards
+1. **Read the [Contributing Guide](CONTRIBUTING.md)** for detailed instructions
+2. **Check [GitHub Issues](https://github.com/yourusername/AutoThrottleNG/issues)** for open tasks
+3. **Fork and clone** the repository
+4. **Set up development environment** with `make install-deps`
+5. **Test your changes** using `make test-all`
+6. **Submit a Pull Request** following the guidelines
 
-### Code Standards
-- Follow Arduino library conventions
-- Include comprehensive comments
-- Test on multiple platforms when possible
-- Update documentation for any API changes
+### Development Tools
 
-### Testing Requirements
-- All examples must compile without errors
-- New features require corresponding examples
-- Documentation updates for significant changes
-- Regression testing of existing functionality
+The project includes comprehensive development tools:
+
+```bash
+make install-deps    # Install Arduino dependencies
+make test-all       # Run full test suite
+make compile-examples # Verify all examples compile
+make format         # Format code consistently
+```
+
+### Code Quality Standards
+
+- Follow Arduino library conventions and naming standards
+- Include comprehensive documentation and comments
+- Test on multiple Arduino platforms when possible
+- Maintain backward compatibility for API changes
+- Update documentation for any new features or changes
 
 ---
 
