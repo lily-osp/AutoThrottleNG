@@ -51,7 +51,7 @@ help:
 # Compilation Targets
 ###############################################################################
 
-compile-examples: compile-basic compile-intermediate compile-advanced compile-motor compile-temperature compile-servo compile-led
+compile-examples: compile-basic compile-intermediate compile-advanced compile-motor compile-temperature compile-servo compile-led compile-operational
 
 compile-basic:
 	@echo "Compiling basic example..."
@@ -87,6 +87,11 @@ compile-led:
 	@echo "Compiling LED brightness example..."
 	@$(ARDUINO_CLI) compile --fqbn $(BOARD) --build-path $(BUILD_DIR)/led_brightness $(EXAMPLES_DIR)/led_brightness/
 	@echo "✓ LED brightness example compiled successfully"
+
+compile-operational:
+	@echo "Compiling operational modes example..."
+	@$(ARDUINO_CLI) compile --fqbn $(BOARD) --build-path $(BUILD_DIR)/operational_modes $(EXAMPLES_DIR)/operational_modes/
+	@echo "✓ Operational modes example compiled successfully"
 
 ###############################################################################
 # Upload Targets
@@ -132,6 +137,12 @@ upload-led: compile-led
 	@echo "Note: Connect LED and light sensor for brightness control"
 	@$(ARDUINO_CLI) upload --fqbn $(BOARD) --port $(PORT) --input-dir $(BUILD_DIR)/led_brightness
 	@echo "✓ LED brightness example uploaded successfully"
+
+upload-operational: compile-operational
+	@echo "Uploading operational modes example..."
+	@echo "Note: Connect potentiometer and button to test operational modes"
+	@$(ARDUINO_CLI) upload --fqbn $(BOARD) --port $(PORT) --input-dir $(BUILD_DIR)/operational_modes
+	@echo "✓ Operational modes example uploaded successfully"
 
 ###############################################################################
 # Testing and Validation

@@ -46,6 +46,12 @@ isInErrorState			KEYWORD2
 clearErrorState			KEYWORD2
 isSaturated				KEYWORD2
 getLastUpdateTime		KEYWORD2
+# Operational Mode Config
+setOperationalMode		KEYWORD2
+getOperationalMode		KEYWORD2
+enableAutoRecovery		KEYWORD2
+isAutoRecoveryEnabled	KEYWORD2
+getRecoveryAttemptCount	KEYWORD2
 
 #######################################
 # Public Enums and Values
@@ -55,6 +61,14 @@ NONE					LITERAL1
 INPUT_INVALID			LITERAL1
 INPUT_TIMEOUT			LITERAL1
 STABILITY_TIMEOUT		LITERAL1
+
+# Operational Modes (within AutoThrottleNG::OperationalMode)
+NORMAL					LITERAL1
+SAFE_MODE				LITERAL1
+LEARNING_MODE			LITERAL1
+MAINTENANCE_MODE		LITERAL1
+CALIBRATION_MODE		LITERAL1
+REVERSE_MODE			LITERAL1
 
 #######################################
 # Related Constants (from PID.h)

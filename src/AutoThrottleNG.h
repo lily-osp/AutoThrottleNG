@@ -28,6 +28,16 @@ public:
         STABILITY_TIMEOUT // Error outside tolerance for too long
     };
 
+    // --- Operational Modes ---
+    enum class OperationalMode : uint8_t {
+        NORMAL = 0,        // Standard PID control
+        SAFE_MODE,         // Reduced performance, maximum safety
+        LEARNING_MODE,     // Adaptive parameter tuning
+        MAINTENANCE_MODE,  // Diagnostic operations
+        CALIBRATION_MODE,  // System calibration
+        REVERSE_MODE       // Reverse operation mode
+    };
+
     /**
      * @brief Constructor.
      * @param minOutput Minimum allowable throttle output.
@@ -80,6 +90,42 @@ public:
 
     /** @brief Sets the PID mode (AUTOMATIC or MANUAL). Failsafe overrides MANUAL. */
     void setMode(int mode);
+
+    // --- Operational Mode Configuration ---
+
+    /**
+     * @brief Sets the operational mode of the controller.
+     * @param mode The operational mode (NORMAL, SAFE_MODE, LEARNING_MODE, etc.).
+     */
+    void setOperationalMode(OperationalMode mode);
+
+    /**
+     * @brief Gets the current operational mode.
+     * @return Current operational mode.
+     */
+    OperationalMode getOperationalMode() const;
+
+    // --- Auto-Recovery Configuration ---
+
+    /**
+     * @brief Enables or disables automatic error recovery.
+     * @param enable True to enable auto-recovery, false to disable.
+     * @param recoveryDelayMs Delay before attempting recovery (default: 5000ms).
+     * @param maxRecoveryAttempts Maximum recovery attempts before staying in failsafe (default: 3).
+     */
+    void enableAutoRecovery(bool enable, unsigned long recoveryDelayMs = 5000, uint8_t maxRecoveryAttempts = 3);
+
+    /**
+     * @brief Gets the current auto-recovery status.
+     * @return True if auto-recovery is enabled.
+     */
+    bool isAutoRecoveryEnabled() const;
+
+    /**
+     * @brief Gets the number of recovery attempts made since last successful operation.
+     * @return Number of recovery attempts.
+     */
+    uint8_t getRecoveryAttemptCount() const;
 
     // --- Filtering Configuration ---
 
@@ -181,6 +227,14 @@ private:
     unsigned long _unstableStartMillis;
     bool _currentlyStable;
     bool _outputSaturated;
+
+    // --- Operational Modes ---
+    OperationalMode _operationalMode;
+    bool _autoRecoveryEnabled;
+    unsigned long _recoveryDelayMs;
+    uint8_t _maxRecoveryAttempts;
+    uint8_t _currentRecoveryAttempts;
+    unsigned long _lastErrorTime;
 
     // --- Helper Methods ---
     double applyInputFilter(double rawValue);

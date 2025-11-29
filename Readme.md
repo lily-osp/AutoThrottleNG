@@ -2,17 +2,17 @@
 
 ## Overview
 
-**AutoThrottleNG** is a complete Arduino library for PID-based control systems. It provides throttle/output control with signal processing, safety mechanisms, and configuration options.
+**AutoThrottleNG** is a comprehensive Arduino library for advanced PID-based control systems. It provides throttle/output control with sophisticated signal processing, multi-layer safety mechanisms, operational modes, and auto-recovery features.
 
 The library is designed for applications requiring precise, reliable closed-loop control:
 
-- Robotics: Motor speed control, position servos, motion systems
-- Aerospace: Drone stabilization, altitude control, navigation
-- Industrial: Process control, valve positioning, conveyor systems
-- Automotive: Cruise control, steering assistance, throttle management
-- Scientific: Temperature regulation, flow control, experimental systems
+- **Robotics**: Motor speed control, position servos, motion systems
+- **Aerospace**: Drone stabilization, altitude control, navigation
+- **Industrial**: Process control, valve positioning, conveyor systems
+- **Automotive**: Cruise control, steering assistance, throttle management
+- **Scientific**: Temperature regulation, flow control, experimental systems
 
-AutoThrottleNG handles control challenges including sensor noise filtering, mechanical stress prevention, system stability monitoring, and failure handling, enabling focus on application logic rather than control implementation details.
+AutoThrottleNG handles complex control challenges including sensor noise filtering, mechanical stress prevention, system stability monitoring, multi-mode operation, and intelligent failure handling, enabling focus on application logic rather than low-level control implementation.
 
 ---
 
@@ -87,6 +87,14 @@ AutoThrottleNG integrates several key control and signal processing techniques:
 * **Standard PID Integration:** Leverages the well-established Arduino `PID` library (`PID.h`) for core control logic.
 * **Input Filtering:** Built-in optional Exponential Moving Average (EMA) filter to smooth noisy sensor inputs before they reach the PID.
 * **Output Smoothing:** Optional time-based ramp rate limiting on the final output to prevent sudden jumps or jerky behavior.
+* **Operational Modes:** Multiple operational modes for different applications:
+  * **NORMAL:** Standard PID operation
+  * **SAFE_MODE:** Conservative settings for maximum safety
+  * **LEARNING_MODE:** Adaptive parameter tuning
+  * **REVERSE_MODE:** Reverse operation for specific applications
+  * **MAINTENANCE_MODE:** Diagnostic operations
+  * **CALIBRATION_MODE:** System calibration
+* **Auto-Recovery System:** Intelligent automatic error recovery with configurable parameters
 * **Failsafe Mechanisms:**
   * **Input Validity:** Rejects `NaN` or `Infinity` sensor readings.
   * **Input Timeout:** Triggers an error if `updateInput()` isn't called within a configurable duration.
@@ -137,6 +145,7 @@ Detailed walkthrough of all 7 example sketches:
   - Temperature regulation with heating/cooling
   - Servo position control with potentiometer
   - Adaptive LED brightness control
+  - Operational modes and auto-recovery demonstration
 
 ### [Troubleshooting Guide](docs/troubleshooting.md)
 - Compilation error resolution
@@ -398,6 +407,14 @@ AutoThrottleNG::Error getErrorState() const;
   * `INPUT_TIMEOUT`: `updateInput()` hasn't been called within the configured timeout.
   * `STABILITY_TIMEOUT`: System error has exceeded tolerance for too long.
 
+**Operational Modes (enum `AutoThrottleNG::OperationalMode`):**
+  * `NORMAL`: Standard PID control operation
+  * `SAFE_MODE`: Conservative settings for maximum safety
+  * `LEARNING_MODE`: Adaptive parameter tuning
+  * `REVERSE_MODE`: Reverse operation for specific applications
+  * `MAINTENANCE_MODE`: Diagnostic operations
+  * `CALIBRATION_MODE`: System calibration
+
 ```cpp
 bool isInErrorState() const;
 ```
@@ -410,6 +427,49 @@ void clearErrorState();
 
 * Manually resets the error state back to `Error::NONE`.
 * **Crucially, you MUST call this function in your code** once the condition causing the failsafe has been resolved (or is assumed resolved) to allow the controller to resume `AUTOMATIC` operation. The library will *not* automatically clear most error states.
+
+### Operational Mode Configuration
+
+```cpp
+void setOperationalMode(OperationalMode mode);
+```
+
+* Sets the operational mode of the controller.
+* **Parameters:**
+  * `mode` (OperationalMode): The operational mode (NORMAL, SAFE_MODE, LEARNING_MODE, REVERSE_MODE, MAINTENANCE_MODE, CALIBRATION_MODE)
+
+```cpp
+OperationalMode getOperationalMode() const;
+```
+
+* Gets the current operational mode.
+* **Returns:** Current operational mode
+
+### Auto-Recovery Configuration
+
+```cpp
+void enableAutoRecovery(bool enable, unsigned long recoveryDelayMs = 5000, uint8_t maxRecoveryAttempts = 3);
+```
+
+* Enables or disables automatic error recovery.
+* **Parameters:**
+  * `enable` (bool): True to enable auto-recovery, false to disable
+  * `recoveryDelayMs` (unsigned long): Delay before attempting recovery (default: 5000ms)
+  * `maxRecoveryAttempts` (uint8_t): Maximum recovery attempts before staying in failsafe (default: 3)
+
+```cpp
+bool isAutoRecoveryEnabled() const;
+```
+
+* Gets the current auto-recovery status.
+* **Returns:** True if auto-recovery is enabled
+
+```cpp
+uint8_t getRecoveryAttemptCount() const;
+```
+
+* Gets the number of recovery attempts made since last successful operation.
+* **Returns:** Number of recovery attempts
 
 ---
 
@@ -520,30 +580,30 @@ AutoThrottleNG/
 
 ## Version 1.2.0 Features
 
-### Enhanced Documentation
-- Documentation Suite: 7 detailed guides covering all aspects
-- Clean Presentation: Technical writing without unnecessary embellishments
-- Table of Contents: Every document includes navigation
-- Cross-References: Guides link to related topics
-- Structured Learning: From beginner basics to advanced techniques
+### Operational Modes & Auto-Recovery
+- **6 Operational Modes**: NORMAL, SAFE_MODE, LEARNING_MODE, REVERSE_MODE, MAINTENANCE_MODE, CALIBRATION_MODE
+- **Auto-Recovery System**: Intelligent automatic error recovery with configurable delay and attempt limits
+- **Mode-Specific Behavior**: Each operational mode applies appropriate PID settings and safety measures
+- **Interactive Mode Switching**: Runtime operational mode changes with automatic reconfiguration
 
-### Expanded Examples
-- 7 Examples: From basic PID to advanced real-world applications
-- Hardware Specifications: Detailed component lists and wiring diagrams
-- Real-World Applications: Motor control, temperature regulation, servo positioning, adaptive lighting
-- Teaching Content: Each example teaches specific concepts and techniques
+### Enhanced Examples
+- **8 Complete Examples**: Including new operational modes demonstration with interactive controls
+- **Real-World Applications**: Motor control, temperature regulation, servo positioning, adaptive lighting
+- **Error Simulation**: Built-in error simulation for testing auto-recovery features
+- **Hardware Integration**: Complete wiring diagrams and component specifications
+
+### Enhanced Documentation
+- **Documentation Suite**: 7 detailed guides covering all aspects
+- **Clean Presentation**: Technical writing without unnecessary embellishments
+- **Table of Contents**: Every document includes navigation
+- **Cross-References**: Guides link to related topics
+- **Structured Learning**: From beginner basics to advanced techniques
 
 ### Development Tools
-- Enhanced Makefile: Support for all examples with automated testing
-- Standard Structure: Proper Arduino library organization
-- Testing: Automated compilation and syntax checking
-- Cross-Platform Support: Compatible with Arduino IDE, PlatformIO, VS Code
-
-### Documentation Improvements
-- Usage Guide: Complete implementation reference
-- Troubleshooting Guide: Systematic problem resolution
-- System Architecture: Technical design documentation
-- Internal Mechanisms: Algorithm and implementation details
+- **Enhanced Makefile**: Support for all examples with automated testing
+- **Standard Structure**: Proper Arduino library organization
+- **Testing**: Automated compilation and syntax checking
+- **Cross-Platform Support**: Compatible with Arduino IDE, PlatformIO, VS Code
 
 ---
 

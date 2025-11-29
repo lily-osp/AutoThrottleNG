@@ -33,6 +33,12 @@ AutoThrottleNG::AutoThrottleNG(double minOutput, double maxOutput,
     , _unstableStartMillis(0)
     , _currentlyStable(true)
     , _outputSaturated(false)
+    , _operationalMode(OperationalMode::NORMAL)
+    , _autoRecoveryEnabled(false)
+    , _recoveryDelayMs(5000)
+    , _maxRecoveryAttempts(3)
+    , _currentRecoveryAttempts(0)
+    , _lastErrorTime(0)
 {
     // Configure PID object after construction
     _pid.SetOutputLimits(_minOutputLimit, _maxOutputLimit);
@@ -80,14 +86,62 @@ double AutoThrottleNG::compute()
 
     // 2. Handle Active Failsafe
     if (isInErrorState()) {
-        if (_pid.GetMode() == AUTOMATIC) {
-            _pid.SetMode(MANUAL); // Stop PID calculations
+        // Check for auto-recovery
+        if (_autoRecoveryEnabled && _currentRecoveryAttempts < _maxRecoveryAttempts) {
+            if (_lastErrorTime == 0) {
+                // First time entering error state
+                _lastErrorTime = currentMillis;
+            } else if ((currentMillis - _lastErrorTime) >= _recoveryDelayMs) {
+                // Attempt recovery
+                _currentRecoveryAttempts++;
+                Serial.print(F("AutoThrottleNG: Auto-recovery attempt "));
+                Serial.print(_currentRecoveryAttempts);
+                Serial.print(F(" of "));
+                Serial.println(_maxRecoveryAttempts);
+
+                // Try to clear the error and resume normal operation
+                clearErrorState();
+
+                // If recovery successful, reset counters
+                if (!isInErrorState()) {
+                    _currentRecoveryAttempts = 0;
+                    _lastErrorTime = 0;
+                    Serial.println(F("AutoThrottleNG: Auto-recovery successful"));
+                    // Continue with normal operation below
+                } else {
+                    Serial.println(F("AutoThrottleNG: Auto-recovery failed, staying in failsafe"));
+                }
+            }
         }
-        _currentSmoothedOutput = _failsafeOutputValue; // Apply failsafe output
-        // _pidOutput might hold last value, we ignore it
-        _outputSaturated = (_currentSmoothedOutput <= _minOutputLimit || _currentSmoothedOutput >= _maxOutputLimit);
-        _lastComputeMillis = currentMillis; // Update time for smoothing continuity
-        return _currentSmoothedOutput;
+
+        // If still in error state after potential recovery attempt
+        if (isInErrorState()) {
+            if (_pid.GetMode() == AUTOMATIC) {
+                _pid.SetMode(MANUAL); // Stop PID calculations
+            }
+
+            // Apply operational mode-specific failsafe behavior
+            switch (_operationalMode) {
+                case OperationalMode::SAFE_MODE:
+                    // In safe mode, use minimum safe output
+                    _currentSmoothedOutput = _minOutputLimit + (_maxOutputLimit - _minOutputLimit) * 0.1;
+                    break;
+
+                case OperationalMode::REVERSE_MODE:
+                    // In reverse mode, use reverse failsafe
+                    _currentSmoothedOutput = _maxOutputLimit - (_failsafeOutputValue - _minOutputLimit);
+                    _currentSmoothedOutput = constrain(_currentSmoothedOutput, _minOutputLimit, _maxOutputLimit);
+                    break;
+
+                default:
+                    _currentSmoothedOutput = _failsafeOutputValue;
+                    break;
+            }
+
+            _outputSaturated = (_currentSmoothedOutput <= _minOutputLimit || _currentSmoothedOutput >= _maxOutputLimit);
+            _lastComputeMillis = currentMillis;
+            return _currentSmoothedOutput;
+        }
     }
 
     // 3. Handle Normal Operation / PID Compute
@@ -149,6 +203,13 @@ void AutoThrottleNG::reset()
     _unstableStartMillis = 0;
     _currentlyStable = true;
     _outputSaturated = false;
+
+    // Reset operational mode to NORMAL
+    _operationalMode = OperationalMode::NORMAL;
+
+    // Reset auto-recovery state
+    _currentRecoveryAttempts = 0;
+    _lastErrorTime = 0;
 }
 
 // --- PID Configuration ---
@@ -197,6 +258,96 @@ void AutoThrottleNG::setMode(int mode)
         // Update PID's output variable when switching externally to MANUAL
         _pidOutput = _currentSmoothedOutput;
     }
+}
+
+// --- Operational Mode Methods ---
+
+void AutoThrottleNG::setOperationalMode(OperationalMode mode)
+{
+    _operationalMode = mode;
+
+    // Apply mode-specific configurations
+    switch (mode) {
+        case OperationalMode::SAFE_MODE:
+            // Conservative settings for maximum safety
+            _pid.SetTunings(_pid.GetKp() * 0.5, _pid.GetKi() * 0.3, _pid.GetKd() * 0.8);
+            enableSmoothing(true, 5.0); // Very slow changes
+            setInputFilterAlpha(0.2);   // Moderate filtering
+            break;
+
+        case OperationalMode::LEARNING_MODE:
+            // Adaptive settings for parameter learning
+            _pid.SetTunings(_pid.GetKp() * 0.8, _pid.GetKi() * 0.5, _pid.GetKd() * 1.2);
+            enableSmoothing(true, 20.0); // Moderate smoothing
+            setInputFilterAlpha(0.1);    // Heavy filtering for stability
+            break;
+
+        case OperationalMode::MAINTENANCE_MODE:
+            // Diagnostic settings
+            setMode(MANUAL); // Manual control for diagnostics
+            _pidOutput = (_minOutputLimit + _maxOutputLimit) / 2.0; // Mid-range output
+            break;
+
+        case OperationalMode::CALIBRATION_MODE:
+            // Calibration settings
+            setMode(MANUAL);
+            _pidOutput = _minOutputLimit; // Start at minimum
+            break;
+
+        case OperationalMode::REVERSE_MODE:
+            // Reverse operation - invert setpoint relationship
+            setControllerDirection(REVERSE);
+            break;
+
+        case OperationalMode::NORMAL:
+        default:
+            // Restore normal operation
+            setControllerDirection(DIRECT);
+            setMode(AUTOMATIC);
+            break;
+    }
+
+    Serial.print(F("AutoThrottleNG: Switched to "));
+    switch (mode) {
+        case OperationalMode::NORMAL: Serial.println(F("NORMAL mode")); break;
+        case OperationalMode::SAFE_MODE: Serial.println(F("SAFE mode")); break;
+        case OperationalMode::LEARNING_MODE: Serial.println(F("LEARNING mode")); break;
+        case OperationalMode::MAINTENANCE_MODE: Serial.println(F("MAINTENANCE mode")); break;
+        case OperationalMode::CALIBRATION_MODE: Serial.println(F("CALIBRATION mode")); break;
+        case OperationalMode::REVERSE_MODE: Serial.println(F("REVERSE mode")); break;
+    }
+}
+
+AutoThrottleNG::OperationalMode AutoThrottleNG::getOperationalMode() const
+{
+    return _operationalMode;
+}
+
+// --- Auto-Recovery Methods ---
+
+void AutoThrottleNG::enableAutoRecovery(bool enable, unsigned long recoveryDelayMs, uint8_t maxRecoveryAttempts)
+{
+    _autoRecoveryEnabled = enable;
+    _recoveryDelayMs = recoveryDelayMs;
+    _maxRecoveryAttempts = maxRecoveryAttempts;
+
+    if (!enable) {
+        _currentRecoveryAttempts = 0;
+        _lastErrorTime = 0;
+    }
+
+    Serial.print(F("AutoThrottleNG: Auto-recovery "));
+    Serial.println(enable ? F("ENABLED") : F("DISABLED"));
+}
+
+bool AutoThrottleNG::isAutoRecoveryEnabled() const
+{
+    return _autoRecoveryEnabled;
+}
+
+uint8_t AutoThrottleNG::getRecoveryAttemptCount() const
+{
+    return _currentRecoveryAttempts;
 }
 
 // --- Filtering ---
@@ -273,6 +424,11 @@ void AutoThrottleNG::clearErrorState()
         _errorState = Error::NONE;
         _unstableStartMillis = 0;
         _currentlyStable = true;
+
+        // Reset auto-recovery counters on manual error clearing
+        _currentRecoveryAttempts = 0;
+        _lastErrorTime = 0;
+
         _pid.SetMode(AUTOMATIC); // Resume automatic mode
         Serial.print(F("AutoThrottleNG: Error cleared (was ")); // F() saves RAM
         Serial.print((int)oldError);
